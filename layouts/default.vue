@@ -1,117 +1,161 @@
 <template>
-  <v-app dark>
-    <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      fixed
-      app
-    >
-      <v-list>
+  <v-app>
+    <v-app-bar dark app class="primary">
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-spacer></v-spacer>
+      <v-toolbar-title class="brand">peckett.io</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn @click="dialog = true" icon>
+        <v-icon>mdi-email</v-icon>
+      </v-btn>
+      <!-- <v-btn @click="changeTheme" icon>
+        <v-icon>{{ icon }}</v-icon>
+      </v-btn> -->
+    </v-app-bar>
+
+    <v-navigation-drawer v-model="drawer" app>
+      <v-list-item class="primary">
+        <v-list-item-avatar>
+          <v-img :src="require('@/assets/me.jpg')"></v-img>
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title class="navlink">Craig Peckett</v-list-item-title>
+          <v-list-item-subtitle>Full Stack Developer</v-list-item-subtitle>
+        </v-list-item-content>
+        <v-btn @click="drawer = !drawer" icon>
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+      </v-list-item>
+      <v-divider></v-divider>
+      <v-list dense nav class="navlink">
         <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
+          v-for="nav in navs"
+          :key="nav.title"
+          link
+          :href="nav.link"
+          @click
         >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
+          <v-list-item-icon>
+            <v-icon>{{ nav.icon }}</v-icon>
+          </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
+            <v-list-item-title>{{ nav.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
+      <template v-slot:append>
+        <v-card-actions>
+          <v-btn @click="dialog = true" class="primary" block text
+            >Contact Me</v-btn
+          >
+        </v-card-actions>
+      </template>
     </v-navigation-drawer>
-    <v-app-bar
-      :clipped-left="clipped"
-      fixed
-      app
-    >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn
-        icon
-        @click.stop="miniVariant = !miniVariant"
-      >
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="clipped = !clipped"
-      >
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="fixed = !fixed"
-      >
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title" />
-      <v-spacer />
-      <v-btn
-        icon
-        @click.stop="rightDrawer = !rightDrawer"
-      >
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
-    </v-app-bar>
+
+    <Dialog v-model="dialog" />
+
     <v-content>
-      <v-container>
-        <nuxt />
-      </v-container>
+      <nuxt />
     </v-content>
-    <v-navigation-drawer
-      v-model="rightDrawer"
-      :right="right"
-      temporary
-      fixed
-    >
-      <v-list>
-        <v-list-item @click.native="right = !right">
-          <v-list-item-action>
-            <v-icon light>
-              mdi-repeat
-            </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-    <v-footer
-      :fixed="fixed"
-      app
-    >
-      <span>&copy; 2019</span>
-    </v-footer>
+
+    <v-card dark flat tile class="primary text-center">
+      <v-card-text>
+        <v-btn
+          v-for="network in networks"
+          :key="network.icon"
+          :href="network.link"
+          target="_blank"
+          class="mx-4"
+          icon
+        >
+          <v-icon size="24px">{{ network.icon }}</v-icon>
+        </v-btn>
+      </v-card-text>
+      <v-divider></v-divider>
+      <v-card-text>
+        {{ new Date().getFullYear() }} -
+        <span>
+          <a href="mailto:me@craigpeckett.com" class="brand">peckett.io</a>
+        </span>
+      </v-card-text>
+    </v-card>
   </v-app>
 </template>
 
 <script>
+import { mapState } from "vuex";
+import Dialog from "@/components/Dialog";
+
 export default {
-  data () {
+  components: {
+    Dialog
+  },
+  data() {
     return {
-      clipped: false,
+      dialog: false,
       drawer: false,
-      fixed: false,
-      items: [
+      icon: "mdi-lightbulb-on",
+      navs: [
         {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/'
+          title: "Who am I?",
+          icon: "mdi-account",
+          link: "#who"
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
+          title: "What can I do?",
+          icon: "mdi-text-box-check",
+          link: "#what"
+        },
+        {
+          title: "How can I do it?",
+          icon: "mdi-microsoft-visual-studio-code",
+          link: "#how"
+        },
+        {
+          title: "Where have I done it?",
+          icon: "mdi-web",
+          link: "#where"
         }
       ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
+      networks: [
+        {
+          icon: "mdi-facebook",
+          link: "https://www.facebook.com/craigpeckett.io/"
+        },
+        {
+          icon: "mdi-instagram",
+          link: "https://www.instagram.com/craigpeckett.io/"
+        },
+        {
+          icon: "mdi-linkedin",
+          link: "https://www.linkedin.com/in/craig-peckett-337881128/"
+        },
+        { icon: "mdi-github", link: "https://github.com/craigPeckett" }
+      ]
+    };
+  },
+  computed: {
+    drawerWidth() {
+      return "100%";
+    }
+  },
+  methods: {
+    changeTheme() {
+      if (this.icon === "mdi-lightbulb-on") this.icon = "mdi-lightbulb-off";
+      else this.icon = "mdi-lightbulb-on";
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
     }
   }
-}
+};
 </script>
+<style>
+html {
+  font-size: 16px;
+}
+.brand {
+  font-family: "Lobster", cursive;
+}
+.v-application a {
+  color: white;
+}
+</style>
