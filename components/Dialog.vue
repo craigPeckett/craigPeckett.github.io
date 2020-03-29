@@ -66,7 +66,7 @@ export default {
   methods: {
     async send() {
       this.loading = true;
-      this.$axios.$post("http://localhost:5000/", this.contact).then(res => {
+      this.$axios.$post("https://portfolio-server23.herokuapp.com/", this.contact).then(res => {
         this.loading = false;
         this.dialog = false;
         this.toggleAlert(res);
