@@ -1,18 +1,20 @@
 <template>
   <v-app>
+    <!-- App Bar -->
     <v-app-bar dark app class="primary">
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-spacer></v-spacer>
-      <v-toolbar-title class="brand">peckett.io</v-toolbar-title>
+      <v-spacer v-if="$vuetify.breakpoint.xsOnly"></v-spacer>
+      <v-toolbar-title class="brand">Craig Peckett</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn @click="dialog = true" icon>
         <v-icon>mdi-email</v-icon>
       </v-btn>
       <!-- <v-btn @click="changeTheme" icon>
         <v-icon>{{ icon }}</v-icon>
-      </v-btn> -->
+      </v-btn>-->
     </v-app-bar>
 
+    <!-- Navigation Drawer -->
     <v-navigation-drawer v-model="drawer" app>
       <v-list-item class="primary">
         <v-list-item-avatar>
@@ -28,13 +30,7 @@
       </v-list-item>
       <v-divider></v-divider>
       <v-list dense nav class="navlink">
-        <v-list-item
-          v-for="nav in navs"
-          :key="nav.title"
-          link
-          :href="nav.link"
-          @click
-        >
+        <v-list-item v-for="nav in navs" :key="nav.title" link :href="nav.link" @click>
           <v-list-item-icon>
             <v-icon>{{ nav.icon }}</v-icon>
           </v-list-item-icon>
@@ -45,19 +41,23 @@
       </v-list>
       <template v-slot:append>
         <v-card-actions>
-          <v-btn @click="dialog = true" class="primary" block text
-            >Contact Me</v-btn
-          >
+          <v-btn @click="dialog = true" class="primary" block text>Contact Me</v-btn>
         </v-card-actions>
       </template>
     </v-navigation-drawer>
 
+    <!-- Contact Form -->
     <Dialog v-model="dialog" />
 
+    <!-- Content -->
     <v-content>
+      <v-alert v-model="alert.show" :type="alert.type" tile dismissible>
+        {{alert.message}}
+      </v-alert>
       <nuxt />
     </v-content>
 
+    <!-- Footer -->
     <v-card dark flat tile class="primary text-center">
       <v-card-text>
         <v-btn
@@ -83,7 +83,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 import Dialog from "@/components/Dialog";
 
 export default {
@@ -137,14 +137,16 @@ export default {
   computed: {
     drawerWidth() {
       return "100%";
-    }
+    },
+    ...mapState(["alert"])
   },
   methods: {
     changeTheme() {
       if (this.icon === "mdi-lightbulb-on") this.icon = "mdi-lightbulb-off";
       else this.icon = "mdi-lightbulb-on";
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
-    }
+    },
+    ...mapMutations(["toggleAlert"])
   }
 };
 </script>

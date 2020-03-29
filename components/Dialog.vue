@@ -36,6 +36,8 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+
 export default {
   props: {
     value: Boolean
@@ -63,12 +65,14 @@ export default {
   },
   methods: {
     async send() {
-      this.loading = true
+      this.loading = true;
       this.$axios.$post("http://localhost:5000/", this.contact).then(res => {
-        this.loading = false
-        console.log(res)
-      })
-    }
+        this.loading = false;
+        this.dialog = false;
+        this.toggleAlert(res);
+      });
+    },
+    ...mapMutations(["toggleAlert"])
   }
 };
 </script>
