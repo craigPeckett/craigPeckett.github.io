@@ -14,7 +14,7 @@
           Sydney. I love building web applications from start to finish
           primarily focusing on simplicity and efficiency.
         </v-card-text>
-        <v-btn @click="dialog = true" class="primary" block>Contact Me</v-btn>
+        <v-btn @click="dialog = true" class="primary" :block="$vuetify.breakpoint.xsOnly">Contact Me</v-btn>
       </v-col>
     </v-row>
 
@@ -33,18 +33,21 @@
       <v-col cols="12">
         <h1 class="text-center">How can I do it?</h1>
       </v-col>
-      <v-col cols="12" sm="6">
+      <v-col v-for="(list, index) in computedHow" :key="index" cols="12" sm="6" md="4" lg="3">
         <v-list>
-          <v-list-item v-for="item in how" :key="item.title" @click>
+          <v-list-item v-for="item in computedHow[index]" :key="item.title">
             <v-list-item-icon>
               <v-icon :color="item.colour">{{ item.icon }}</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title v-text="item.title"></v-list-item-title>
-              <v-list-item-subtitle
-                v-text="item.subtitle"
-              ></v-list-item-subtitle>
+              <v-list-item-subtitle v-text="item.subtitle"></v-list-item-subtitle>
             </v-list-item-content>
+            <v-list-item-action>
+              <v-btn :href="item.link" target="_blank" icon>
+                <v-icon color="primary">mdi-information</v-icon>
+              </v-btn>
+            </v-list-item-action>
           </v-list-item>
         </v-list>
       </v-col>
@@ -53,12 +56,7 @@
     <v-row id="where">
       <v-col cols="12" class="text-center">
         <h1>Where have I done it?</h1>
-        <v-progress-circular
-          :size="150"
-          color="primary"
-          indeterminate
-          class="mt-2"
-        ></v-progress-circular>
+        <v-progress-circular :size="150" color="primary" indeterminate class="mt-2"></v-progress-circular>
         <v-card-text>Projects coming soon...</v-card-text>
       </v-col>
     </v-row>
@@ -100,84 +98,123 @@ export default {
           icon: "mdi-language-html5",
           title: "HTML5",
           subtitle: "Hypertext Markup Language",
-          colour: "red"
+          colour: "red",
+          link: "https://developer.mozilla.org/en-US/docs/Web/HTML"
         },
         {
           icon: "mdi-language-css3",
           title: "CSS3",
           subtitle: "Cascading Style Sheets",
-          colour: "blue"
+          colour: "blue",
+          link: "https://developer.mozilla.org/en-US/docs/Web/CSS"
         },
         {
           icon: "mdi-language-javascript",
           title: "Javascript",
           subtitle: "ECMAScript",
-          colour: "yellow"
+          colour: "yellow",
+          link: "https://developer.mozilla.org/en-US/docs/Web/JavaScript"
         },
         {
           icon: "mdi-bootstrap",
           title: "Bootstrap",
           subtitle: "Component Library",
-          colour: "purple"
+          colour: "purple",
+          link: "https://getbootstrap.com/"
         },
         {
           icon: "mdi-sass",
           title: "Sass",
           subtitle: "CSS Language",
-          colour: "pink"
+          colour: "pink",
+          link: "https://sass-lang.com/"
         },
         {
           icon: "mdi-jquery",
           title: "JQuery",
           subtitle: "Javascript Library",
-          colour: "blue"
+          colour: "blue",
+          link: "https://jquery.com/"
         },
         {
           icon: "mdi-vuejs",
           title: "Vue JS",
           subtitle: "Javascript Framework",
-          colour: "#41b883"
+          colour: "#41b883",
+          link: "https://vuejs.org/"
         },
         {
           icon: "mdi-vuetify",
           title: "Vuetify",
           subtitle: "Vue UI Library",
-          colour: "#1f96f2"
+          colour: "#1f96f2",
+          link: "https://vuetifyjs.com/en/"
         },
         {
           icon: "mdi-nodejs",
           title: "Node JS",
           subtitle: "JavaScript Runtime",
-          colour: "#3c873b"
+          colour: "#3c873b",
+          link: "https://nodejs.org/en/"
         },
         {
           icon: "mdi-firebase",
           title: "Firebase",
           subtitle: "Application Platform",
-          colour: "#f37f0a"
+          colour: "#f37f0a",
+          link:
+            "https://firebase.google.com/docs/functions/get-started?authuser=1"
         },
         {
           icon: "mdi-leaf",
           title: "Mongo DB",
           subtitle: "Document Database",
-          colour: "#3c873b"
+          colour: "#3c873b",
+          link: "https://www.mongodb.com/"
         },
         {
           icon: "mdi-nuxt",
           title: "Nuxt JS",
           subtitle: "Vue JS Framework",
-          colour: "#41b883"
+          colour: "#41b883",
+          link: "https://nuxtjs.org/"
         }
       ]
     };
   },
+  computed: {
+    computedHow() {
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return [this.how];
+        case "sm":
+        case "md":
+          let halfLength = Math.ceil(this.how.length / 2),
+            firstHalf = this.how.slice(0, halfLength),
+            secondHalf = this.how.slice(halfLength, this.how.length);
+          return [firstHalf, secondHalf];
+        case "lg":
+          let thirdLength = Math.ceil(this.how.length / 3),
+            firstThird = this.how.slice(0, thirdLength),
+            secondThird = this.how.slice(thirdLength, thirdLength * 2),
+            thirdThird = this.how.slice(thirdLength * 2, this.how.length);
+          return [firstThird, secondThird, thirdThird];
+        case "xl":
+          let quarterLength = Math.ceil(this.how.length / 4),
+            firstQuarter = this.how.slice(0, quarterLength),
+            secondQuarter = this.how.slice(quarterLength, quarterLength * 2),
+            thirdQuarter = this.how.slice(quarterLength * 2, quarterLength * 3),
+            fourthQuarter = this.how.slice(quarterLength * 3, this.how.length);
+          return [firstQuarter, secondQuarter, thirdQuarter, fourthQuarter];
+      }
+    }
+  }
 };
 </script>
 
 <style>
 h1,
-h2,
-.navlink {
+h2 {
   font-family: "Bebas Neue", cursive;
 }
 </style>

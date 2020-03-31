@@ -51,9 +51,7 @@
 
     <!-- Content -->
     <v-content>
-      <v-alert v-model="alert.show" :type="alert.type" tile dismissible>
-        {{alert.message}}
-      </v-alert>
+      <v-alert v-model="alert.show" :type="alert.type" tile dismissible>{{alert.message}}</v-alert>
       <nuxt />
     </v-content>
 
@@ -75,7 +73,12 @@
       <v-card-text>
         {{ new Date().getFullYear() }} -
         <span>
-          <a href="mailto:me@craigpeckett.com" class="brand">peckett.io</a>
+          Created by
+          <a
+            href="https://www.craigpeckett.com/"
+            target="_blank"
+            class="brand white--text"
+          >Craig Peckett</a>
         </span>
       </v-card-text>
     </v-card>
@@ -97,24 +100,9 @@ export default {
       icon: "mdi-lightbulb-on",
       navs: [
         {
-          title: "Who am I?",
-          icon: "mdi-account",
-          link: "#who"
-        },
-        {
-          title: "What can I do?",
-          icon: "mdi-text-box-check",
-          link: "#what"
-        },
-        {
-          title: "How can I do it?",
-          icon: "mdi-microsoft-visual-studio-code",
-          link: "#how"
-        },
-        {
-          title: "Where have I done it?",
-          icon: "mdi-web",
-          link: "#where"
+          title: "Home",
+          icon: "mdi-home",
+          link: "/"
         }
       ],
       networks: [
@@ -156,8 +144,5 @@ html {
 }
 .brand {
   font-family: "Lobster", cursive;
-}
-.v-application a {
-  color: white;
 }
 </style>
