@@ -30,7 +30,7 @@
       </v-list-item>
       <v-divider></v-divider>
       <v-list dense nav class="navlink">
-        <v-list-item v-for="nav in navs" :key="nav.title" link :href="nav.link" @click>
+        <v-list-item v-for="nav in navs" :key="nav.title" link :href="nav.link">
           <v-list-item-icon>
             <v-icon>{{ nav.icon }}</v-icon>
           </v-list-item-icon>
@@ -56,32 +56,34 @@
     </v-content>
 
     <!-- Footer -->
-    <v-card dark flat tile class="primary text-center">
-      <v-card-text>
-        <v-btn
-          v-for="network in networks"
-          :key="network.icon"
-          :href="network.link"
-          target="_blank"
-          class="mx-4"
-          icon
-        >
-          <v-icon size="24px">{{ network.icon }}</v-icon>
-        </v-btn>
-      </v-card-text>
-      <v-divider></v-divider>
-      <v-card-text>
-        {{ new Date().getFullYear() }} -
-        <span>
-          Created by
-          <a
-            href="https://www.craigpeckett.com/"
+    <v-footer padless>
+      <v-card dark flat tile class="primary text-center" width="100%">
+        <v-card-text>
+          <v-btn
+            v-for="network in networks"
+            :key="network.icon"
+            :href="network.link"
             target="_blank"
-            class="brand white--text"
-          >Craig Peckett</a>
-        </span>
-      </v-card-text>
-    </v-card>
+            class="mx-4"
+            icon
+          >
+            <v-icon size="24px">{{ network.icon }}</v-icon>
+          </v-btn>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-text>
+          {{ new Date().getFullYear() }} -
+          <span>
+            Created by
+            <a
+              href="https://www.craigpeckett.com/"
+              target="_blank"
+              class="brand white--text"
+            >Craig Peckett</a>
+          </span>
+        </v-card-text>
+      </v-card>
+    </v-footer>
   </v-app>
 </template>
 
