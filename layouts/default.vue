@@ -6,16 +6,21 @@
       <v-spacer v-if="$vuetify.breakpoint.xsOnly"></v-spacer>
       <v-toolbar-title class="brand">Craig Peckett</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn @click="dialog = true" icon>
-        <v-icon>mdi-email</v-icon>
-      </v-btn>
+      <v-tooltip color="white" left>
+        <template v-slot:activator="{ on }">
+          <v-btn v-on="on" @click="dialog = true" icon>
+            <v-icon>mdi-email</v-icon>
+          </v-btn>
+        </template>
+        <span class="primary--text">Contact Me</span>
+      </v-tooltip>
       <!-- <v-btn @click="changeTheme" icon>
         <v-icon>{{ icon }}</v-icon>
       </v-btn>-->
     </v-app-bar>
 
     <!-- Navigation Drawer -->
-    <v-navigation-drawer v-model="drawer" app>
+    <v-navigation-drawer v-model="drawer" app style="max-height: 100%">
       <v-list-item class="primary">
         <v-list-item-avatar>
           <v-img :src="require('@/assets/me.jpg')"></v-img>
@@ -29,7 +34,7 @@
         </v-btn>
       </v-list-item>
       <v-divider></v-divider>
-      <v-list dense nav class="navlink">
+      <v-list nav class="navlink">
         <v-list-item v-for="nav in navs" :key="nav.title" link :href="nav.link">
           <v-list-item-icon>
             <v-icon>{{ nav.icon }}</v-icon>
@@ -41,7 +46,9 @@
       </v-list>
       <template v-slot:append>
         <v-card-actions>
-          <v-btn @click="dialog = true" class="primary" block text>Contact Me</v-btn>
+          <v-btn @click="dialog = true" class="primary" block text
+            >Contact Me</v-btn
+          >
         </v-card-actions>
       </template>
     </v-navigation-drawer>
@@ -51,12 +58,14 @@
 
     <!-- Content -->
     <v-content>
-      <v-alert v-model="alert.show" :type="alert.type" tile dismissible>{{alert.message}}</v-alert>
+      <v-alert v-model="alert.show" :type="alert.type" tile dismissible>{{
+        alert.message
+      }}</v-alert>
       <nuxt />
     </v-content>
 
     <!-- Footer -->
-    <v-footer padless>
+    <v-footer padless app absolute inset width="auto">
       <v-card dark flat tile class="primary text-center" width="100%">
         <v-card-text>
           <v-btn
@@ -79,7 +88,8 @@
               href="https://www.craigpeckett.com/"
               target="_blank"
               class="brand white--text"
-            >Craig Peckett</a>
+              >Craig Peckett</a
+            >
           </span>
         </v-card-text>
       </v-card>
@@ -98,7 +108,7 @@ export default {
   data() {
     return {
       dialog: false,
-      drawer: false,
+      drawer: null,
       icon: "mdi-lightbulb-on",
       navs: [
         {
