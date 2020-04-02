@@ -91,6 +91,7 @@
               >Craig Peckett</a
             >
           </span>
+          - V{{ version }}
         </v-card-text>
       </v-card>
     </v-footer>
@@ -98,6 +99,7 @@
 </template>
 
 <script>
+import packageJson from "../package.json";
 import { mapState, mapMutations } from "vuex";
 import Dialog from "@/components/Dialog";
 
@@ -110,6 +112,7 @@ export default {
       dialog: false,
       drawer: null,
       icon: "mdi-lightbulb-on",
+      version: packageJson.version,
       navs: [
         {
           title: "Home",

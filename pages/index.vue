@@ -4,7 +4,7 @@
       <v-col cols="12">
         <h1>Who am I?</h1>
       </v-col>
-      <v-col cols="12" sm="6">
+      <v-col cols="12" sm="6" lg="4" xl="3">
         <v-avatar size="200">
           <v-img :src="require('@/assets/me.jpg')"></v-img>
         </v-avatar>
@@ -27,7 +27,7 @@
       <v-col cols="12">
         <h1>What can I do?</h1>
       </v-col>
-      <v-col v-for="item in what" :key="item.title" cols="12" sm="4">
+      <v-col v-for="item in what" :key="item.title" cols="12" sm="4" xl="3">
         <v-icon size="100" color="primary">{{ item.icon }}</v-icon>
         <h2 class="d-block">{{ item.title }}</h2>
         <v-card-text>{{ item.text }}</v-card-text>
