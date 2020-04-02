@@ -26,7 +26,7 @@
           <v-img :src="require('@/assets/me.jpg')"></v-img>
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title class="navlink">Craig Peckett</v-list-item-title>
+          <v-list-item-title>Craig Peckett</v-list-item-title>
           <v-list-item-subtitle>Full Stack Developer</v-list-item-subtitle>
         </v-list-item-content>
         <v-btn @click="drawer = !drawer" icon>
@@ -34,21 +34,30 @@
         </v-btn>
       </v-list-item>
       <v-divider></v-divider>
-      <v-list nav class="navlink">
-        <v-list-item v-for="nav in navs" :key="nav.title" link :href="nav.link">
+
+      <v-list nav>
+        <v-list-item link href="/">
           <v-list-item-icon>
-            <v-icon>{{ nav.icon }}</v-icon>
+            <v-icon>mdi-home</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title>{{ nav.title }}</v-list-item-title>
+            <v-list-item-title>Home</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+
+        <v-list-group v-for="nav in navs" :key="nav.title" :prepend-icon="nav.icon" no-action>
+          <template v-slot:activator>
+            <v-list-item-title>{{ nav.title }}</v-list-item-title>
+          </template>
+          <v-list-item v-for="item in nav.items" :key="item.title" :href="item.link" link>
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item>
+        </v-list-group>
       </v-list>
+
       <template v-slot:append>
         <v-card-actions>
-          <v-btn @click="dialog = true" class="primary" block text
-            >Contact Me</v-btn
-          >
+          <v-btn @click="dialog = true" class="primary" block text>Contact Me</v-btn>
         </v-card-actions>
       </template>
     </v-navigation-drawer>
@@ -58,10 +67,14 @@
 
     <!-- Content -->
     <v-content>
-      <v-alert v-model="alert.show" :type="alert.type" tile dismissible>{{
+      <v-alert v-model="alert.show" :type="alert.type" tile dismissible>
+        {{
         alert.message
-      }}</v-alert>
-      <nuxt />
+        }}
+      </v-alert>
+      <v-container>
+        <nuxt />
+      </v-container>
     </v-content>
 
     <!-- Footer -->
@@ -88,8 +101,7 @@
               href="https://www.craigpeckett.com/"
               target="_blank"
               class="brand white--text"
-              >Craig Peckett</a
-            >
+            >Craig Peckett</a>
           </span>
           - V{{ version }}
         </v-card-text>
@@ -115,9 +127,9 @@ export default {
       version: packageJson.version,
       navs: [
         {
-          title: "Home",
-          icon: "mdi-home",
-          link: "/"
+          title: "Games",
+          icon: "mdi-gamepad-variant",
+          items: [{ title: "Breakout", link: "/games/breakout" }]
         }
       ],
       networks: [

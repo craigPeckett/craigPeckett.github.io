@@ -14,12 +14,7 @@
           Sydney. I love building web applications from start to finish
           primarily focusing on simplicity and efficiency.
         </v-card-text>
-        <v-btn
-          @click="dialog = true"
-          class="primary"
-          :block="$vuetify.breakpoint.xsOnly"
-          >Contact Me</v-btn
-        >
+        <v-btn @click="dialog = true" class="primary" :block="$vuetify.breakpoint.xsOnly">Contact Me</v-btn>
       </v-col>
     </v-row>
 
@@ -38,14 +33,7 @@
       <v-col cols="12">
         <h1 class="text-center">How can I do it?</h1>
       </v-col>
-      <v-col
-        v-for="(list, index) in computedHow"
-        :key="index"
-        cols="12"
-        sm="6"
-        lg="4"
-        xl="3"
-      >
+      <v-col v-for="(list, index) in computedHow" :key="index" cols="12" sm="6" lg="4" xl="3">
         <v-list>
           <v-list-item v-for="item in computedHow[index]" :key="item.title">
             <v-list-item-icon>
@@ -53,9 +41,7 @@
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title v-text="item.title"></v-list-item-title>
-              <v-list-item-subtitle
-                v-text="item.subtitle"
-              ></v-list-item-subtitle>
+              <v-list-item-subtitle v-text="item.subtitle"></v-list-item-subtitle>
             </v-list-item-content>
             <v-list-item-action>
               <v-tooltip color="primary" left>
@@ -75,12 +61,7 @@
     <v-row id="where">
       <v-col cols="12" class="text-center">
         <h1>Where have I done it?</h1>
-        <v-progress-circular
-          :size="150"
-          color="primary"
-          indeterminate
-          class="mt-2"
-        ></v-progress-circular>
+        <v-progress-circular :size="150" color="primary" indeterminate class="mt-2"></v-progress-circular>
         <v-card-text>Projects coming soon...</v-card-text>
       </v-col>
     </v-row>
@@ -96,8 +77,8 @@ export default {
       titleTemplate: "%s - Home",
       meta: [
         {
-          hid: "description",
-          name: "description",
+          hid: "Home Page",
+          name: "Home",
           content: "Home Page"
         }
       ]
