@@ -135,11 +135,11 @@ export default {
       networks: [
         {
           icon: "mdi-facebook",
-          link: "https://www.facebook.com/craigpeckett.io/"
+          link: "https://www.facebook.com/peckett.io/"
         },
         {
           icon: "mdi-instagram",
-          link: "https://www.instagram.com/craigpeckett.io/"
+          link: "https://www.instagram.com/peckett.io/"
         },
         {
           icon: "mdi-linkedin",
