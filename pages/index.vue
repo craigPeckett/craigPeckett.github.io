@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row id="who" class="text-center" justify="center">
+    <!-- <v-row id="who" class="text-center py-5" justify="center">
       <v-col cols="12">
         <h1>Who am I?</h1>
       </v-col>
@@ -16,9 +16,30 @@
         </v-card-text>
         <v-btn @click="dialog = true" class="primary" :block="$vuetify.breakpoint.xsOnly">Contact Me</v-btn>
       </v-col>
+    </v-row>-->
+
+    <v-row id="landing" justify="center" align="center" class="mb-10" :class="{'mt-10': $vuetify.breakpoint.mdAndUp} ">
+      <v-col cols="12" sm="6">
+        <div :class="{'text-center': $vuetify.breakpoint.xsOnly, 'text-right': $vuetify.breakpoint.smAndUp}">
+          <v-avatar size="250">
+            <v-img :src="require('@/assets/cartoon.jpg')"></v-img>
+          </v-avatar>
+        </div>
+      </v-col>
+      <v-col cols="12" sm="6">
+        <h1 class="header">
+          Hi, I'm
+          <span class="secondary--text primary px-2">Craig Peckett</span>
+        </h1>
+        <h1 class="mb-5 subheader">
+          I love to
+          <span class="primary--text secondary px-2">{{ subheader }}</span>
+        </h1>
+        <v-btn @click="dialog = true" class="primary":block="$vuetify.breakpoint.xsOnly">Contact Me</v-btn>
+      </v-col>
     </v-row>
 
-    <v-row id="what" class="text-center" justify="center">
+    <v-row id="what" class="text-center py-5" justify="center">
       <v-col cols="12">
         <h1>What can I do?</h1>
       </v-col>
@@ -29,11 +50,11 @@
       </v-col>
     </v-row>
 
-    <v-row id="how" justify="center">
+    <v-row id="how" justify="center" class="py-5">
       <v-col cols="12">
         <h1 class="text-center">How can I do it?</h1>
       </v-col>
-      <v-col v-for="(list, index) in computedHow" :key="index" cols="12" sm="6" lg="4" xl="3">
+      <v-col v-for="(list, index) in computedHow" :key="index" cols="12" sm="6" md="4" xl="3">
         <v-list>
           <v-list-item v-for="item in computedHow[index]" :key="item.title">
             <v-list-item-icon>
@@ -56,12 +77,15 @@
           </v-list-item>
         </v-list>
       </v-col>
+      <v-col cols="12" xl="6">
+        <Chart v-if="$vuetify.breakpoint.smAndUp"/>
+      </v-col>
     </v-row>
 
-    <v-row id="where">
+    <v-row id="where" class="py-5">
       <v-col cols="12" class="text-center">
         <h1>Where have I done it?</h1>
-        <v-progress-circular :size="150" color="primary" indeterminate class="mt-2"></v-progress-circular>
+        <v-progress-circular :size="150" color="primary" indeterminate class="my-5"></v-progress-circular>
         <v-card-text>Projects coming soon...</v-card-text>
       </v-col>
     </v-row>
@@ -70,6 +94,7 @@
 </template>
 <script>
 import Dialog from "@/components/Dialog";
+import Chart from "@/components/Chart";
 
 export default {
   head() {
@@ -85,11 +110,17 @@ export default {
     };
   },
   components: {
-    Dialog
+    Dialog,
+    Chart
   },
   data() {
     return {
+      hover: false,
+      contact: "white primary--text",
       dialog: false,
+      subheader: "",
+      subheaderArr: ["write code.", "solve problems.", "drink bee"],
+      hover: false,
       what: [
         {
           icon: "mdi-tablet-cellphone",
@@ -199,30 +230,66 @@ export default {
       ]
     };
   },
+  mounted() {
+    // Typewriter
+    let char = 0,
+      arr = 0,
+      text = this.subheaderArr[arr].split(""),
+      coffee = true,
+      coffeeString = "coffee.",
+      coffeeArr = coffeeString.split(""),
+      coffeeCount = 0;
+
+    setInterval(() => {
+      if (char < text.length) {
+        this.subheader += text[char];
+        char++;
+      } else {
+        if (arr === 2) {
+          if (this.subheader.length > 6 && coffee)
+            this.subheader = this.subheader.slice(0, -1);
+          else {
+            coffee = false;
+            if (coffeeCount < coffeeArr.length) {
+              this.subheader += coffeeArr[coffeeCount];
+              coffeeCount++;
+            } else this.subheader = this.subheader.slice(0, -1);
+          }
+        } else this.subheader = this.subheader.slice(0, -1);
+      }
+      if (this.subheader.length === 0) {
+        if (arr < this.subheaderArr.length - 1) arr++;
+        else arr = 0;
+        text = this.subheaderArr[arr].split("");
+        char = 0;
+        coffee = true;
+      }
+    }, 200);
+  },
   computed: {
     computedHow() {
       switch (this.$vuetify.breakpoint.name) {
         case "xs":
           return [this.how];
         case "sm":
-        case "md":
+        case "xl":
           let halfLength = Math.ceil(this.how.length / 2),
             firstHalf = this.how.slice(0, halfLength),
             secondHalf = this.how.slice(halfLength, this.how.length);
           return [firstHalf, secondHalf];
+        case "md":
         case "lg":
           let thirdLength = Math.ceil(this.how.length / 3),
             firstThird = this.how.slice(0, thirdLength),
             secondThird = this.how.slice(thirdLength, thirdLength * 2),
             thirdThird = this.how.slice(thirdLength * 2, this.how.length);
           return [firstThird, secondThird, thirdThird];
-        case "xl":
-          let quarterLength = Math.ceil(this.how.length / 4),
-            firstQuarter = this.how.slice(0, quarterLength),
-            secondQuarter = this.how.slice(quarterLength, quarterLength * 2),
-            thirdQuarter = this.how.slice(quarterLength * 2, quarterLength * 3),
-            fourthQuarter = this.how.slice(quarterLength * 3, this.how.length);
-          return [firstQuarter, secondQuarter, thirdQuarter, fourthQuarter];
+        // let quarterLength = Math.ceil(this.how.length / 4),
+        //   firstQuarter = this.how.slice(0, quarterLength),
+        //   secondQuarter = this.how.slice(quarterLength, quarterLength * 2),
+        //   thirdQuarter = this.how.slice(quarterLength * 2, quarterLength * 3),
+        //   fourthQuarter = this.how.slice(quarterLength * 3, this.how.length);
+        // return [firstQuarter, secondQuarter, thirdQuarter, fourthQuarter];
       }
     }
   }

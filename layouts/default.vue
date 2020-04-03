@@ -23,7 +23,7 @@
     <v-navigation-drawer v-model="drawer" app style="max-height: 100%">
       <v-list-item class="primary">
         <v-list-item-avatar>
-          <v-img :src="require('@/assets/me.jpg')"></v-img>
+          <v-img :src="require('@/assets/cartoon.jpg')"></v-img>
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title>Craig Peckett</v-list-item-title>
@@ -126,11 +126,11 @@ export default {
       icon: "mdi-lightbulb-on",
       version: packageJson.version,
       navs: [
-        {
-          title: "Games",
-          icon: "mdi-gamepad-variant",
-          items: [{ title: "Breakout", link: "/games/breakout" }]
-        }
+        // {
+        //   title: "Games",
+        //   icon: "mdi-gamepad-variant",
+        //   items: [{ title: "Breakout", link: "/games/breakout" }]
+        // }
       ],
       networks: [
         {
