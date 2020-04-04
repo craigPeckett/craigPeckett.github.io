@@ -271,6 +271,7 @@ export default {
         text = this.subheaderArr[arr].split("");
         char = 0;
         coffee = true;
+        coffeeCount = 0
       }
     }, 200);
   },
