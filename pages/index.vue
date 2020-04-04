@@ -77,9 +77,9 @@
           </v-list-item>
         </v-list>
       </v-col>
-      <v-col cols="12" xl="6">
+      <!-- <v-col cols="12" xl="6">
         <Chart v-if="$vuetify.breakpoint.smAndUp"/>
-      </v-col>
+      </v-col> -->
     </v-row>
 
     <v-row id="where" class="py-5">
