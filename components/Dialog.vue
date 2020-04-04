@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" :fullscreen="$vuetify.breakpoint.xsOnly" max-width="500">
+  <v-dialog v-model="dialog" :fullscreen="$breakpoint.xsOnly" max-width="500">
     <v-card>
       <v-card-title class="primary">
         <h2>Contact</h2>

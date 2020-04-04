@@ -26,9 +26,7 @@
       :class="{'mt-10': $breakpoint.mdAndUp} "
     >
       <v-col cols="12" sm="6">
-        <div
-          :class="{'text-center': $breakpoint.xsOnly, 'text-right': $breakpoint.smAndUp}"
-        >
+        <div :class="{'text-center': $breakpoint.xsOnly, 'text-right': $breakpoint.smAndUp}">
           <v-avatar size="250">
             <v-img :src="require('@/assets/cartoon.jpg')"></v-img>
           </v-avatar>
@@ -86,7 +84,7 @@
         </v-list>
       </v-col>
       <v-col cols="12" xl="6">
-        <Chart v-if="$breakpoint.smAndUp"/>
+        <Chart v-if="$breakpoint.smAndUp" />
       </v-col>
     </v-row>
 
@@ -123,12 +121,12 @@ export default {
   },
   data() {
     return {
+      mounted: false,
       hover: false,
       contact: "white primary--text",
       dialog: false,
       subheader: "",
       subheaderArr: ["write code.", "solve problems.", "drink bee"],
-      isHydrated: false,
       what: [
         {
           icon: "mdi-tablet-cellphone",
@@ -239,7 +237,7 @@ export default {
     };
   },
   mounted() {
-     this.isHydrated = true
+    this.mounted = true;
 
     // Typewriter
     let char = 0,
@@ -278,29 +276,30 @@ export default {
   },
   computed: {
     computedHow() {
-      switch (this.$vuetify.breakpoint.name) {
-        case "xs":
-          return [this.how];
-        case "sm":
-        case "xl":
-          let halfLength = Math.ceil(this.how.length / 2),
-            firstHalf = this.how.slice(0, halfLength),
-            secondHalf = this.how.slice(halfLength, this.how.length);
-          return [firstHalf, secondHalf];
-        case "md":
-        case "lg":
-          let thirdLength = Math.ceil(this.how.length / 3),
-            firstThird = this.how.slice(0, thirdLength),
-            secondThird = this.how.slice(thirdLength, thirdLength * 2),
-            thirdThird = this.how.slice(thirdLength * 2, this.how.length);
-          return [firstThird, secondThird, thirdThird];
-        // let quarterLength = Math.ceil(this.how.length / 4),
-        //   firstQuarter = this.how.slice(0, quarterLength),
-        //   secondQuarter = this.how.slice(quarterLength, quarterLength * 2),
-        //   thirdQuarter = this.how.slice(quarterLength * 2, quarterLength * 3),
-        //   fourthQuarter = this.how.slice(quarterLength * 3, this.how.length);
-        // return [firstQuarter, secondQuarter, thirdQuarter, fourthQuarter];
-      }
+      if (this.mounted)
+        switch (this.$vuetify.breakpoint.name) {
+          case "xs":
+            return [this.how];
+          case "sm":
+          case "xl":
+            let halfLength = Math.ceil(this.how.length / 2),
+              firstHalf = this.how.slice(0, halfLength),
+              secondHalf = this.how.slice(halfLength, this.how.length);
+            return [firstHalf, secondHalf];
+          case "md":
+          case "lg":
+            let thirdLength = Math.ceil(this.how.length / 3),
+              firstThird = this.how.slice(0, thirdLength),
+              secondThird = this.how.slice(thirdLength, thirdLength * 2),
+              thirdThird = this.how.slice(thirdLength * 2, this.how.length);
+            return [firstThird, secondThird, thirdThird];
+          // let quarterLength = Math.ceil(this.how.length / 4),
+          //   firstQuarter = this.how.slice(0, quarterLength),
+          //   secondQuarter = this.how.slice(quarterLength, quarterLength * 2),
+          //   thirdQuarter = this.how.slice(quarterLength * 2, quarterLength * 3),
+          //   fourthQuarter = this.how.slice(quarterLength * 3, this.how.length);
+          // return [firstQuarter, secondQuarter, thirdQuarter, fourthQuarter];
+        }
     }
   }
 };

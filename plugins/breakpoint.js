@@ -1,3 +1,4 @@
+
 import Vue from "vue"
 
 //the properties of breakpoint that we want to mirror

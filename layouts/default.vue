@@ -159,7 +159,7 @@ export default {
     changeTheme() {
       if (this.icon === "mdi-lightbulb-on") this.icon = "mdi-lightbulb-off";
       else this.icon = "mdi-lightbulb-on";
-      this.$theme.dark = !this.$theme.dark;
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
     },
     ...mapMutations(["toggleAlert"])
   }
