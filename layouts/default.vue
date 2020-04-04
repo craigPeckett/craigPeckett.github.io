@@ -3,7 +3,7 @@
     <!-- App Bar -->
     <v-app-bar dark app class="primary">
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-spacer v-if="$vuetify.breakpoint.xsOnly"></v-spacer>
+      <v-spacer v-if="$breakpoint.xsOnly"></v-spacer>
       <v-toolbar-title class="brand">Craig Peckett</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-tooltip color="white" left>
@@ -159,7 +159,7 @@ export default {
     changeTheme() {
       if (this.icon === "mdi-lightbulb-on") this.icon = "mdi-lightbulb-off";
       else this.icon = "mdi-lightbulb-on";
-      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+      this.$theme.dark = !this.$theme.dark;
     },
     ...mapMutations(["toggleAlert"])
   }

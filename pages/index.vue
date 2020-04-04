@@ -14,13 +14,21 @@
           Sydney. I love building web applications from start to finish
           primarily focusing on simplicity and efficiency.
         </v-card-text>
-        <v-btn @click="dialog = true" class="primary" :block="$vuetify.breakpoint.xsOnly">Contact Me</v-btn>
+        <v-btn @click="dialog = true" class="primary" :block="$breakpoint.xsOnly">Contact Me</v-btn>
       </v-col>
     </v-row>-->
 
-    <v-row id="landing" justify="center" align="center" class="mb-10" :class="{'mt-10': $vuetify.breakpoint.mdAndUp} ">
+    <v-row
+      id="landing"
+      justify="center"
+      align="center"
+      class="mb-10"
+      :class="{'mt-10': $breakpoint.mdAndUp} "
+    >
       <v-col cols="12" sm="6">
-        <div :class="{'text-center': $vuetify.breakpoint.xsOnly, 'text-right': $vuetify.breakpoint.smAndUp}">
+        <div
+          :class="{'text-center': $breakpoint.xsOnly, 'text-right': $breakpoint.smAndUp}"
+        >
           <v-avatar size="250">
             <v-img :src="require('@/assets/cartoon.jpg')"></v-img>
           </v-avatar>
@@ -35,7 +43,7 @@
           I love to
           <span class="primary--text secondary px-2">{{ subheader }}</span>
         </h1>
-        <v-btn @click="dialog = true" class="primary":block="$vuetify.breakpoint.xsOnly">Contact Me</v-btn>
+        <v-btn @click="dialog = true" class="primary" :block="$breakpoint.xsOnly">Contact Me</v-btn>
       </v-col>
     </v-row>
 
@@ -78,8 +86,8 @@
         </v-list>
       </v-col>
       <!-- <v-col cols="12" xl="6">
-        <Chart v-if="$vuetify.breakpoint.smAndUp"/>
-      </v-col> -->
+        <Chart v-if="$breakpoint.smAndUp"/>
+      </v-col>-->
     </v-row>
 
     <v-row id="where" class="py-5">
@@ -120,7 +128,7 @@ export default {
       dialog: false,
       subheader: "",
       subheaderArr: ["write code.", "solve problems.", "drink bee"],
-      hover: false,
+      isHydrated: false,
       what: [
         {
           icon: "mdi-tablet-cellphone",
@@ -231,6 +239,8 @@ export default {
     };
   },
   mounted() {
+     this.isHydrated = true
+
     // Typewriter
     let char = 0,
       arr = 0,
