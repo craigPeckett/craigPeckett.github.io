@@ -7,7 +7,6 @@
       </v-btn>
     </v-snackbar>
 
-        
     <!-- <v-row id="who" class="text-center py-5" justify="center">
       <v-col cols="12">
         <h1>Who am I?</h1>
@@ -30,7 +29,7 @@
       <v-col cols="12" sm="6">
         <div :class="{'text-center': $breakpoint.xsOnly, 'text-right': $breakpoint.smAndUp}">
           <v-avatar size="250">
-            <v-img :src="require('@/assets/cartoon.jpg')"></v-img>
+            <v-img :src="image"></v-img>
           </v-avatar>
         </div>
       </v-col>
@@ -319,11 +318,15 @@ export default {
           // return [firstQuarter, secondQuarter, thirdQuarter, fourthQuarter];
         }
     },
+    image() {
+      if (this.$vuetify.theme.dark) return require("@/assets/cartoon-dark.jpg");
+      return require("@/assets/cartoon-light.png");
+    },
     ...mapState(["alert"])
   },
   methods: {
     showSnackbar() {
-       this.$emit('snackbar')
+      this.$emit("snackbar");
       this.snackbar = true;
     }
   }

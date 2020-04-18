@@ -38,7 +38,7 @@
     <v-navigation-drawer v-model="drawer" app style="max-height: 100%">
       <v-list-item class="primary">
         <v-list-item-avatar>
-          <v-img :src="require('@/assets/cartoon.jpg')"></v-img>
+          <v-img :src="require('@/assets/cartoon-dark.jpg')"></v-img>
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title>Craig Peckett</v-list-item-title>
