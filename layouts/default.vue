@@ -85,7 +85,7 @@
       <v-alert v-model="notification" type="info" tile dismissible>
         <b>SPECIAL OFFER!!!</b>
         <span>I will be building my next project for absolutely </span><b class="mr-2">FREE!</b>
-        <v-btn @click="dialog = true" class="white info--text" color="info">Contact Me</v-btn>
+        <v-btn @click="dialog = true" class="white info--text">Contact Me</v-btn>
       </v-alert>
       <v-container>
         <nuxt />
