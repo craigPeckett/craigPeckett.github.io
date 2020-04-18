@@ -98,8 +98,8 @@
       </v-col>
     </v-row>
 
-    <v-row class="py-5" justify="center">
-      <v-col cols="12" sm="8" md="6" class="text-center">
+    <v-row class="py-5 mb-10" justify="center">
+      <v-col cols="12" sm="8" md="6" xl="4" class="text-center">
         <h1>Why do I do it?</h1>
         <v-card-text>
           I do it because I love it! With a background in electronics I started teaching myself how to code
@@ -323,7 +323,6 @@ export default {
   },
   methods: {
     showSnackbar() {
-      console.log("Snackbar");
        this.$emit('snackbar')
       this.snackbar = true;
     }
