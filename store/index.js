@@ -1,8 +1,8 @@
 export const state = () => ({
   alert: {
-    show: false,
+    show: true,
     type: "success",
-    message: ""
+    message: "Test"
   }
 })
 

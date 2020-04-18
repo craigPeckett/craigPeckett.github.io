@@ -1,11 +1,29 @@
 <template>
   <v-app>
+    <v-snackbar v-model="snackbar" :color="alert.type">
+      <v-icon class="mr-2">mdi-pencil</v-icon>
+      {{ alert.message }}
+      <v-btn icon @click="this.snackbar = false">
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
+    </v-snackbar>
+
     <!-- App Bar -->
     <v-app-bar dark app class="primary">
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-spacer v-if="$breakpoint.xsOnly"></v-spacer>
+      <img src='@/assets/logo.png' width="30" class="mr-3">
       <v-toolbar-title class="brand">Craig Peckett</v-toolbar-title>
       <v-spacer></v-spacer>
+
+      <v-tooltip color="white" left>
+        <template v-slot:activator="{ on }">
+          <v-btn v-on="on" @click="changeTheme" icon>
+            <v-icon>{{ icon }}</v-icon>
+          </v-btn>
+        </template>
+        <span class="primary--text">{{ theme }} Theme</span>
+      </v-tooltip>
       <v-tooltip color="white" left>
         <template v-slot:activator="{ on }">
           <v-btn v-on="on" @click="dialog = true" icon>
@@ -14,9 +32,6 @@
         </template>
         <span class="primary--text">Contact Me</span>
       </v-tooltip>
-      <!-- <v-btn @click="changeTheme" icon>
-        <v-icon>{{ icon }}</v-icon>
-      </v-btn>-->
     </v-app-bar>
 
     <!-- Navigation Drawer -->
@@ -63,15 +78,15 @@
     </v-navigation-drawer>
 
     <!-- Contact Form -->
-    <Dialog v-model="dialog" />
+    <Dialog v-model="dialog" @snackbar="showSnackbar" />
 
     <!-- Content -->
     <v-content>
-      <v-alert v-model="alert.show" :type="alert.type" tile dismissible>
+      <!-- <v-alert v-model="alert.show" :type="alert.type" tile dismissible>
         {{
         alert.message
         }}
-      </v-alert>
+      </v-alert>-->
       <v-container>
         <nuxt />
       </v-container>
@@ -103,7 +118,6 @@
               class="brand white--text"
             >Craig Peckett</a>
           </span>
-          - V{{ version }}
         </v-card-text>
       </v-card>
     </v-footer>
@@ -111,7 +125,6 @@
 </template>
 
 <script>
-import packageJson from "../package.json";
 import { mapState, mapMutations } from "vuex";
 import Dialog from "@/components/Dialog";
 
@@ -121,10 +134,11 @@ export default {
   },
   data() {
     return {
+      theme: "Light",
+      snackbar: false,
       dialog: false,
       drawer: null,
       icon: "mdi-lightbulb-on",
-      version: packageJson.version,
       navs: [
         // {
         //   title: "Games",
@@ -157,9 +171,18 @@ export default {
   },
   methods: {
     changeTheme() {
-      if (this.icon === "mdi-lightbulb-on") this.icon = "mdi-lightbulb-off";
-      else this.icon = "mdi-lightbulb-on";
+      if (this.theme === "Light") {
+        this.theme = "Dark"
+        this.icon = "mdi-lightbulb-off";
+        }
+      else {
+        this.theme = "Light"
+        this.icon = "mdi-lightbulb-on";
+      }
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+    },
+    showSnackbar() {
+      this.snackbar = true;
     },
     ...mapMutations(["toggleAlert"])
   }

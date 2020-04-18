@@ -10,20 +10,28 @@
       </v-card-title>
       <v-card-text>
         <v-container>
-          <v-row>
-            <v-col cols="12">
-              <v-text-field v-model="contact.name" label="Name" required></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field v-model="contact.company" label="Company" required></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field v-model="contact.email" label="Email" required></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-textarea v-model="contact.message" label="Message" counter required></v-textarea>
-            </v-col>
-          </v-row>
+          <v-form ref="form" v-model="valid">
+            <v-row>
+              <v-col cols="12">
+                <v-text-field v-model="contact.name" label="Name" required :rules="nameRules"></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field v-model="contact.company" label="Company"></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field v-model="contact.email" label="Email" required :rules="emailRules"></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-textarea
+                  v-model="contact.message"
+                  label="Message"
+                  counter
+                  required
+                  :rules="messageRules"
+                ></v-textarea>
+              </v-col>
+            </v-row>
+          </v-form>
         </v-container>
       </v-card-text>
       <v-card-actions>
@@ -50,7 +58,19 @@ export default {
         company: "",
         email: "",
         message: ""
-      }
+      },
+      valid: true,
+      nameRules: [v => !!v || "Name is required"],
+      emailRules: [
+        v => !!v || "E-mail is required",
+        v => /.+@.+\..+/.test(v) || "E-mail must be valid"
+      ],
+      messageRules: [
+        v => !!v || "Message is required",
+        v =>
+          (v && v.length >= 10) ||
+          "Please type a message longer than 10 characters"
+      ]
     };
   },
   computed: {
@@ -65,12 +85,17 @@ export default {
   },
   methods: {
     async send() {
-      this.loading = true;
-      this.$axios.$post("https://portfolio-server23.herokuapp.com/", this.contact).then(res => {
-        this.loading = false;
-        this.dialog = false;
-        this.toggleAlert(res);
-      });
+      if (this.$refs.form.validate()) {
+        this.loading = true;
+        this.$axios
+          .$post("https://portfolio-server23.herokuapp.com/", this.contact)
+          .then(res => {
+            this.loading = false;
+            this.dialog = false;
+            this.toggleAlert(res);
+            this.$emit("snackbar");
+          });
+      }
     },
     ...mapMutations(["toggleAlert"])
   }

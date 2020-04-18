@@ -1,5 +1,13 @@
 <template>
   <v-container>
+    <v-snackbar v-model="snackbar" :color="alert.type">
+      {{ alert.message }}
+      <v-btn icon @click="this.snackbar = false">
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
+    </v-snackbar>
+
+        
     <!-- <v-row id="who" class="text-center py-5" justify="center">
       <v-col cols="12">
         <h1>Who am I?</h1>
@@ -18,13 +26,7 @@
       </v-col>
     </v-row>-->
 
-    <v-row
-      id="landing"
-      justify="center"
-      align="center"
-      class="mb-10"
-      :class="{'mt-10': $breakpoint.mdAndUp} "
-    >
+    <v-row justify="center" align="center" class="mb-10" :class="{'mt-10': $breakpoint.mdAndUp} ">
       <v-col cols="12" sm="6">
         <div :class="{'text-center': $breakpoint.xsOnly, 'text-right': $breakpoint.smAndUp}">
           <v-avatar size="250">
@@ -45,7 +47,7 @@
       </v-col>
     </v-row>
 
-    <v-row id="what" class="text-center py-5" justify="center">
+    <v-row class="text-center py-5" justify="center">
       <v-col cols="12">
         <h1>What can I do?</h1>
       </v-col>
@@ -56,7 +58,7 @@
       </v-col>
     </v-row>
 
-    <v-row id="how" justify="center" class="py-5">
+    <v-row justify="center" class="py-5">
       <v-col cols="12">
         <h1 class="text-center">How can I do it?</h1>
       </v-col>
@@ -88,19 +90,33 @@
       </v-col>
     </v-row>
 
-    <v-row id="where" class="py-5">
+    <v-row class="py-5">
       <v-col cols="12" class="text-center">
         <h1>Where have I done it?</h1>
         <v-progress-circular :size="150" color="primary" indeterminate class="my-5"></v-progress-circular>
         <v-card-text>Projects coming soon...</v-card-text>
       </v-col>
     </v-row>
-    <Dialog v-model="dialog" />
+
+    <v-row class="py-5" justify="center">
+      <v-col cols="12" sm="8" md="6" class="text-center">
+        <h1>Why do I do it?</h1>
+        <v-card-text>
+          I do it because I love it! With a background in electronics I started teaching myself how to code
+          about 4 years ago. Since then I have moved into a development role at work and have started building my own business on the side.
+          I would love to help you get your business started too. I am forever expanding my skill set and I am dedicated to my work.
+          If you have a project you would like to discuss, lets meet up for a coffee... my shout.
+        </v-card-text>
+        <v-btn @click="dialog = true" class="primary" :block="$breakpoint.xsOnly">Hmmm... Coffee</v-btn>
+      </v-col>
+    </v-row>
+    <Dialog v-model="dialog" @snackbar="showSnackbar" />
   </v-container>
 </template>
 <script>
 import Dialog from "@/components/Dialog";
 import Chart from "@/components/Chart";
+import { mapState } from "vuex";
 
 export default {
   head() {
@@ -108,9 +124,9 @@ export default {
       titleTemplate: "%s - Home",
       meta: [
         {
-          hid: "Home Page",
-          name: "Home",
-          content: "Home Page"
+          hid: "craigpeckett:home",
+          name: "craigpeckett:home",
+          content: "Craig Peckett - Home Page"
         }
       ]
     };
@@ -121,6 +137,7 @@ export default {
   },
   data() {
     return {
+      snackbar: false,
       mounted: false,
       hover: false,
       contact: "white primary--text",
@@ -271,7 +288,7 @@ export default {
         text = this.subheaderArr[arr].split("");
         char = 0;
         coffee = true;
-        coffeeCount = 0
+        coffeeCount = 0;
       }
     }, 200);
   },
@@ -301,6 +318,14 @@ export default {
           //   fourthQuarter = this.how.slice(quarterLength * 3, this.how.length);
           // return [firstQuarter, secondQuarter, thirdQuarter, fourthQuarter];
         }
+    },
+    ...mapState(["alert"])
+  },
+  methods: {
+    showSnackbar() {
+      console.log("Snackbar");
+       this.$emit('snackbar')
+      this.snackbar = true;
     }
   }
 };
