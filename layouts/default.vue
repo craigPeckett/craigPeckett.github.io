@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-snackbar v-model="snackbar" :color="alert.type">
-      <v-icon class="mr-2">mdi-pencil</v-icon>
+      <v-icon class="mr-2">mdi-check</v-icon>
       {{ alert.message }}
       <v-btn icon @click="this.snackbar = false">
         <v-icon>mdi-close</v-icon>
@@ -10,9 +10,8 @@
 
     <!-- App Bar -->
     <v-app-bar dark app class="primary">
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-spacer v-if="$breakpoint.xsOnly"></v-spacer>
       <img src='@/assets/logo.png' width="30" class="mr-3">
+      <v-spacer v-if="$breakpoint.xsOnly"></v-spacer>
       <v-toolbar-title class="brand">Craig Peckett</v-toolbar-title>
       <v-spacer></v-spacer>
 
@@ -35,7 +34,7 @@
     </v-app-bar>
 
     <!-- Navigation Drawer -->
-    <v-navigation-drawer v-model="drawer" app style="max-height: 100%">
+    <!-- <v-navigation-drawer v-model="drawer" app style="max-height: 100%">
       <v-list-item class="primary">
         <v-list-item-avatar>
           <v-img :src="require('@/assets/cartoon-dark.jpg')"></v-img>
@@ -75,7 +74,7 @@
           <v-btn @click="dialog = true" class="primary" block text>Contact Me</v-btn>
         </v-card-actions>
       </template>
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
 
     <!-- Contact Form -->
     <Dialog v-model="dialog" @snackbar="showSnackbar" />

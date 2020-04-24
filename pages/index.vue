@@ -1,6 +1,7 @@
 <template>
   <v-container>
-    <v-snackbar v-model="snackbar" :color="alert.type">
+     <v-snackbar v-model="snackbar" :color="alert.type">
+      <v-icon class="mr-2">mdi-check</v-icon>
       {{ alert.message }}
       <v-btn icon @click="this.snackbar = false">
         <v-icon>mdi-close</v-icon>
@@ -89,13 +90,13 @@
       </v-col>
     </v-row>
 
-    <v-row class="py-5">
+    <!-- <v-row class="py-5">
       <v-col cols="12" class="text-center">
         <h1>Where have I done it?</h1>
         <v-progress-circular :size="150" color="primary" indeterminate class="my-5"></v-progress-circular>
         <v-card-text>Projects coming soon...</v-card-text>
       </v-col>
-    </v-row>
+    </v-row> -->
 
     <v-row class="py-5 mb-10" justify="center">
       <v-col cols="12" sm="8" md="6" xl="4" class="text-center">
