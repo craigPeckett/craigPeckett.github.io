@@ -10,7 +10,7 @@
 
     <!-- App Bar -->
     <v-app-bar dark app class="primary">
-      <img src='@/assets/logo.png' width="30" class="mr-3">
+      <img src="@/assets/logo.png" width="30" class="mr-3" />
       <v-spacer v-if="$breakpoint.xsOnly"></v-spacer>
       <v-toolbar-title class="brand">Craig Peckett</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -74,7 +74,7 @@
           <v-btn @click="dialog = true" class="primary" block text>Contact Me</v-btn>
         </v-card-actions>
       </template>
-    </v-navigation-drawer> -->
+    </v-navigation-drawer>-->
 
     <!-- Contact Form -->
     <Dialog v-model="dialog" @snackbar="showSnackbar" />
@@ -83,7 +83,8 @@
     <v-content>
       <v-alert v-model="notification" type="info" tile dismissible>
         <b>SPECIAL OFFER!!!</b>
-        <span>I will be building my next project for absolutely </span><b class="mr-2">FREE!</b>
+        <span>I will be building my next project for absolutely</span>
+        <b class="mr-2">FREE!</b>
         <v-btn @click="dialog = true" class="white info--text">Contact Me</v-btn>
       </v-alert>
       <v-container>
@@ -171,15 +172,16 @@ export default {
   },
   methods: {
     changeTheme() {
-      if (this.theme === "Light") {
-        this.theme = "Dark"
-        this.icon = "mdi-lightbulb-off";
-        }
-      else {
-        this.theme = "Light"
-        this.icon = "mdi-lightbulb-on";
-      }
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+      setTimeout(() => {
+        if (this.theme === "Light") {
+          this.theme = "Dark";
+          this.icon = "mdi-lightbulb-off";
+        } else {
+          this.theme = "Light";
+          this.icon = "mdi-lightbulb-on";
+        }
+      }, 100);
     },
     showSnackbar() {
       this.snackbar = true;
