@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[3],{502:function(n,e,t){"use strict";t.r(e);var l=t(53),o=t(68),c=t.n(o),r=t(324),w=t(326),component=Object(l.a)({},(function(){var n=this.$createElement,e=this._self._c||n;return e("v-row",[e("v-col",[e("h1",[this._v("Games")])])],1)}),[],!1,null,null,null);e.default=component.exports;c()(component,{VCol:r.a,VRow:w.a})}}]);
