@@ -84,7 +84,7 @@ export default {
     }
   },
   methods: {
-    async send() {
+    send() {
       if (this.$refs.form.validate()) {
         this.loading = true;
         this.$axios
@@ -92,6 +92,8 @@ export default {
           .then(res => {
             this.loading = false;
             this.dialog = false;
+            this.$refs.form.reset();
+            this.$refs.form.resetValidation();
             this.toggleAlert(res);
             this.$emit("snackbar");
           });

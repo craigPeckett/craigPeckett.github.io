@@ -19,12 +19,12 @@ export default {
     ctx.translate(0.5, 0.5);
     ctx.imageSmoothingEnabled = false;
     this.draw(ctx);
-    setInterval(_ => {
-      if (type < types.length - 1) type++;
-      else type = 0;
-      myChart.destroy();
-      this.draw(ctx);
-    }, 10000);
+    // setInterval(_ => {
+    //   if (type < types.length - 1) type++;
+    //   else type = 0;
+    //   myChart.destroy();
+    //   this.draw(ctx);
+    // }, 10000);
   },
   methods: {
     draw(ctx) {
